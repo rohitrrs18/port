@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { NeuralFeed } from "@/components/sections/neural-feed";
 import { Expertise } from "@/components/sections/expertise";
 import { AboutMe } from "@/components/sections/about-me";
+import { CareerBlueprint } from "@/components/sections/career-blueprint";
 import { LiquidChromeWrapper } from "@/components/canvas/liquid-chrome-wrapper";
 
 import { getSortedPostsData } from "@/lib/blog";
@@ -46,6 +47,7 @@ export default function Home() {
           <WorkRedesign />
           <NeuralFeed posts={posts} />
           <Expertise />
+          <CareerBlueprint />
           <MegaContact />
           <Footer />
         </div>

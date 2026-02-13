@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
-import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { Preloader } from "@/components/layout/preloader";
 
 const greatVibes = Great_Vibes({

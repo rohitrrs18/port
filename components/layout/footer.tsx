@@ -24,6 +24,7 @@ export function Footer() {
                         <motion.div
                             whileHover={{ rotate: 90, scale: 1.1 }}
                             transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                            style={{ willChange: "transform" }}
                         >
                             <LogoRS className="w-16 h-16 md:w-20 md:h-20" />
                         </motion.div>

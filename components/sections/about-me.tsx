@@ -76,7 +76,7 @@ export function AboutMe() {
                         {/* Floating Credential - Magnetic Effect Concept */}
                         <motion.div
                             whileHover={{ y: -10, rotate: 2 }}
-                            className="absolute -top-12 -right-12 p-8 bg-neutral-900 border border-white/10 rounded-[2.5rem] backdrop-blur-3xl shadow-2xl hidden md:block"
+                            className="absolute -top-12 -right-12 p-8 bg-neutral-900/80 border border-white/10 rounded-[2.5rem] backdrop-blur-xl shadow-2xl hidden md:block"
                         >
                             <div className="flex items-center gap-4 mb-4">
                                 <Sparkles className="w-6 h-6 text-primary" />

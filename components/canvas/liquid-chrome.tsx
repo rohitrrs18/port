@@ -18,7 +18,7 @@ function LiquidSphere() {
 
     return (
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-            <Sphere ref={meshRef} args={[1, 256, 256]} scale={2.5}>
+            <Sphere ref={meshRef} args={[1, 128, 128]} scale={2.5}>
                 <MeshDistortMaterial
                     color="#e0e0e0" // Silver/Chrome
                     attach="material"
@@ -39,7 +39,11 @@ function LiquidSphere() {
 export function LiquidChromeScene() {
     return (
         <div className="fixed inset-0 z-0 pointer-events-none">
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: true, alpha: true }}>
+            <Canvas
+                camera={{ position: [0, 0, 5], fov: 45 }}
+                gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+                dpr={[1, 2]} // Optimize for high-DPI screens
+            >
                 <LiquidSphere />
 
                 {/* Cinematic Lighting Environment */}

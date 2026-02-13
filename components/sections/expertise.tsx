@@ -77,7 +77,7 @@ export function Expertise() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.1, duration: 0.8 }}
                             className={cn(
-                                "group relative p-10 rounded-[3rem] border border-white/5 bg-neutral-900/30 backdrop-blur-3xl overflow-hidden hover:border-primary/50 transition-all duration-700",
+                                "group relative p-10 rounded-[3rem] border border-white/5 bg-neutral-900/40 backdrop-blur-lg overflow-hidden hover:border-primary/50 transition-[border-color,background-color] duration-700",
                                 node.className
                             )}
                         >

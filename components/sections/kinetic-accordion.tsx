@@ -78,12 +78,14 @@ export function KineticAccordion() {
                         >
                             {/* Background Image */}
                             <motion.div
-                                className="absolute inset-0 bg-cover bg-center grayscale"
-                                style={{ backgroundImage: `url(${item.img})` }}
+                                className="absolute inset-0 bg-cover bg-center"
+                                style={{
+                                    backgroundImage: `url(${item.img})`,
+                                    willChange: "transform, opacity"
+                                }}
                                 animate={{
-                                    scale: active === index ? 1.1 : 1,
-                                    filter: active === index ? "grayscale(0%)" : "grayscale(100%)",
-                                    opacity: active === index ? 0.4 : 0.1
+                                    scale: active === index ? 1.05 : 1,
+                                    opacity: active === index ? 0.6 : 0.1
                                 }}
                                 transition={{ duration: 0.8 }}
                             />

@@ -40,7 +40,7 @@ export default function Home() {
         </section>
 
         {/* Editorial Content Layout */}
-        <div className="bg-neutral-950/90 backdrop-blur-md relative z-20 shadow-2xl">
+        <div className="bg-neutral-950/95 relative z-20 shadow-2xl">
           <AboutMe />
           <KineticAccordion />
           <WorkRedesign />

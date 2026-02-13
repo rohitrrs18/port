@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useScroll, useTransform, useMotionValue, useVelocity, useSpring, motion, useAnimationFrame, wrap } from "framer-motion";
 
 interface KineticTextProps {
@@ -46,15 +46,13 @@ export function KineticText({ text, className, baseVelocity = 5 }: KineticTextPr
         <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
             <motion.div
                 className={"flex flex-nowrap whitespace-nowrap " + className}
-                style={{ x, skewX: skew }}
+                style={{ x, skewX: skew, willChange: "transform, skew" }}
             >
-                <span className="block mr-8">{text}</span>
-                <span className="block mr-8">{text}</span>
-                <span className="block mr-8">{text}</span>
-                <span className="block mr-8">{text}</span>
+                <span className="block mr-12">{text}</span>
+                <span className="block mr-12">{text}</span>
+                <span className="block mr-12">{text}</span>
+                <span className="block mr-12">{text}</span>
             </motion.div>
         </div>
     );
 }
-
-

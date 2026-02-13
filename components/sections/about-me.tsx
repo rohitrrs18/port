@@ -23,7 +23,7 @@ export function AboutMe() {
     return (
         <section
             ref={sectionRef}
-            className="py-40 md:py-80 relative overflow-hidden bg-neutral-950"
+            className="py-24 md:py-80 relative overflow-hidden bg-neutral-950"
             id="about"
         >
             {/* Background Texture - Grain & Lines */}
@@ -101,7 +101,7 @@ export function AboutMe() {
 
                             <motion.h2
                                 style={{ y: textReveal, opacity: textOpacity }}
-                                className="text-7xl md:text-[9rem] font-black text-white leading-[0.8] tracking-widest uppercase italic"
+                                className="text-6xl md:text-[9rem] font-black text-white leading-[0.8] tracking-widest uppercase italic"
                             >
                                 Rohit<br />
                                 <span className="text-primary italic-outline">Sawant</span>.
@@ -109,7 +109,7 @@ export function AboutMe() {
                         </div>
 
                         <div className="max-w-2xl space-y-8">
-                            <p className="text-2xl md:text-4xl text-neutral-400 font-light leading-snug">
+                            <p className="text-xl md:text-4xl text-neutral-400 font-light leading-snug">
                                 An <span className="text-white font-bold italic">Engineering Architect</span> by trade, a <span className="text-white font-bold italic">Digital Voice</span> by choice.
                             </p>
                             <p className="text-lg text-neutral-500 font-medium leading-relaxed max-w-xl">

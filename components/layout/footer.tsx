@@ -1,11 +1,38 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Github, Twitter, Linkedin, Heart, Mail } from "lucide-react";
 import Link from "next/link";
 import { LogoRS } from "@/components/ui/logo-rs";
 
 export function Footer() {
+    const [time, setTime] = useState<string>("");
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const istTime = now.toLocaleTimeString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                hour12: true,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+            const istDate = now.toLocaleDateString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+            setTime(`${istDate} | ${istTime}`);
+        };
+
+        updateTime();
+        const interval = setInterval(updateTime, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <footer className="bg-neutral-950 pt-12 pb-6 relative overflow-hidden border-t border-white/5">
             {/* Architectural Grid Lines */}
@@ -19,8 +46,19 @@ export function Footer() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-20">
 
+                    {/* Clock & Status */}
+                    <div className="order-2 md:order-1 flex flex-col items-center md:items-start gap-2">
+                        <div className="text-[10px] font-mono text-primary uppercase tracking-[0.4em] flex items-center gap-2">
+                            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                            System_Time_IST
+                        </div>
+                        <div className="text-sm font-mono text-white tracking-widest tabular-nums">
+                            {time || "SYNCING..."}
+                        </div>
+                    </div>
+
                     {/* Logo Alone - The Hero */}
-                    <div className="relative group">
+                    <div className="order-1 md:order-2 relative group">
                         <motion.div
                             whileHover={{ rotate: 90, scale: 1.1 }}
                             transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -32,7 +70,7 @@ export function Footer() {
                     </div>
 
                     {/* Technical Links - Row Layout */}
-                    <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+                    <div className="order-3 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
                         {[
                             { name: "Expertise", href: "#expertise" },
                             { name: "Experiments", href: "#work" },

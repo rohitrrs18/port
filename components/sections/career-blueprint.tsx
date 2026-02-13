@@ -66,12 +66,12 @@ export function CareerBlueprint() {
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="mb-32 space-y-6">
-                    <div className="flex items-center gap-4 text-xs font-mono text-primary uppercase tracking-[0.8em]">
-                        <Activity className="w-4 h-4 animate-pulse" />
+                <div className="mb-20 md:mb-32 space-y-4 md:space-y-6">
+                    <div className="flex items-center gap-4 text-[10px] md:text-xs font-mono text-primary uppercase tracking-[0.5em] md:tracking-[0.8em]">
+                        <Activity className="w-3 h-3 md:w-4 md:h-4 animate-pulse" />
                         Professional_History_Stream
                     </div>
-                    <h2 className="text-7xl md:text-9xl font-black text-white leading-none tracking-tighter uppercase italic shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <h2 className="text-5xl md:text-9xl font-black text-white leading-none tracking-tighter uppercase italic shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                         Career <br /> <span className="text-neutral-800 italic-outline">Blueprint</span>.
                     </h2>
                 </div>
@@ -120,17 +120,17 @@ export function CareerBlueprint() {
                                 </div>
 
                                 {/* Content Card */}
-                                <div className="flex-1">
-                                    <div className="group relative p-8 md:p-12 rounded-[2.5rem] bg-neutral-900/30 border border-white/5 backdrop-blur-3xl hover:border-primary/50 transition-all duration-700">
-                                        <div className="absolute top-6 right-8 text-[12px] font-mono text-neutral-800 select-none group-hover:text-primary transition-colors">OS_DEPLOYMENT_HANDLED</div>
+                                <div className="flex-1 w-full md:w-auto">
+                                    <div className="group relative p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] bg-neutral-900/30 border border-white/5 backdrop-blur-3xl hover:border-primary/50 transition-all duration-700">
+                                        <div className="absolute top-4 md:top-6 right-6 md:right-8 text-[9px] md:text-[12px] font-mono text-neutral-800 select-none group-hover:text-primary transition-colors">OS_DEPLOYMENT_HANDLED</div>
 
-                                        <div className="flex items-start gap-6 mb-8">
-                                            <div className="w-14 h-14 rounded-2xl bg-neutral-900 flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-black transition-all">
-                                                <event.icon className="w-6 h-6" />
+                                        <div className="flex items-start gap-4 md:gap-6 mb-6 md:mb-8">
+                                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-neutral-900 flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-black transition-all shrink-0">
+                                                <event.icon className="w-5 h-5 md:w-6 md:h-6" />
                                             </div>
                                             <div>
-                                                <h4 className="text-3xl font-black text-white uppercase italic tracking-tighter">{event.title}</h4>
-                                                <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">{event.location}</p>
+                                                <h4 className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter">{event.title}</h4>
+                                                <p className="text-[10px] md:text-xs font-mono text-neutral-500 uppercase tracking-widest">{event.location}</p>
                                             </div>
                                         </div>
 

@@ -75,34 +75,34 @@ function ProjectSection({ project, index }: { project: typeof projects[0], index
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
     return (
-        <div ref={container} className="h-screen md:h-[120vh] grid md:grid-cols-12 gap-10 items-center relative">
+        <div ref={container} className="min-h-[80vh] md:h-[120vh] grid md:grid-cols-12 gap-10 items-center relative py-20 md:py-0">
             {/* Project Content - Pins on Desktop */}
             <div className={cn(
-                "md:col-span-4 space-y-8 z-20 transition-all",
+                "md:col-span-4 space-y-6 md:space-y-8 z-20 transition-all",
                 index % 2 === 0 ? "md:order-1" : "md:order-2 md:text-right md:items-end flex flex-col"
             )}>
                 <motion.div
                     initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: false, margin: "-100px" }}
-                    className="space-y-6"
+                    className="space-y-4 md:space-y-6"
                 >
-                    <div className="flex items-center gap-4 text-primary font-mono text-[10px] tracking-[0.3em] uppercase">
+                    <div className="flex items-center gap-4 text-primary font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase">
                         <span className="w-8 h-[1px] bg-primary/30" />
                         {project.category}
                     </div>
 
-                    <h3 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
+                    <h3 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                         {project.title}
                     </h3>
 
-                    <p className="text-neutral-400 text-lg leading-relaxed max-w-sm">
+                    <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-sm">
                         {project.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 pt-4">
+                    <div className="flex flex-wrap gap-2 pt-2 md:pt-4">
                         {project.tags.map(tag => (
-                            <span key={tag} className="text-[10px] font-mono px-3 py-1 rounded-full border border-neutral-800 text-neutral-500 uppercase">
+                            <span key={tag} className="text-[9px] md:text-[10px] font-mono px-3 py-1 rounded-full border border-neutral-800 text-neutral-500 uppercase">
                                 {tag}
                             </span>
                         ))}
@@ -110,10 +110,10 @@ function ProjectSection({ project, index }: { project: typeof projects[0], index
 
                     <Link
                         href={`/work/${project.id}`}
-                        className="inline-flex items-center gap-2 text-white font-bold group pt-8"
+                        className="inline-flex items-center gap-2 text-white font-bold group pt-6 md:pt-8"
                     >
-                        <span>Explore Deeply</span>
-                        <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        <span className="text-sm md:text-base">Explore Deeply</span>
+                        <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     </Link>
                 </motion.div>
             </div>
@@ -135,7 +135,7 @@ function ProjectSection({ project, index }: { project: typeof projects[0], index
                 <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
                     <motion.span
                         style={{ opacity }}
-                        className="text-[30vw] font-black text-white/5 italic select-none"
+                        className="text-[40vw] md:text-[30vw] font-black text-white/5 italic select-none"
                     >
                         0{index + 1}
                     </motion.span>

@@ -63,7 +63,7 @@ export function Expertise() {
                             <Terminal className="w-4 h-4" />
                             Initialization_Sequence
                         </div>
-                        <h2 className="text-7xl md:text-[10rem] font-black text-white leading-[0.8] tracking-widest uppercase italic border-l-[20px] border-primary pl-10 shadow-[0_0_50px_rgba(var(--primary-rgb),0.1)]">
+                        <h2 className="text-5xl md:text-[10rem] font-black text-white leading-[0.8] tracking-widest uppercase italic border-l-[10px] md:border-l-[20px] border-primary pl-6 md:pl-10 shadow-[0_0_50px_rgba(var(--primary-rgb),0.1)]">
                             Technical<br /> <span className="text-neutral-900 italic-outline">Versatility</span>.
                         </h2>
                     </div>
@@ -77,7 +77,7 @@ export function Expertise() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.1, duration: 0.8 }}
                             className={cn(
-                                "group relative p-10 rounded-[3rem] border border-white/5 bg-neutral-900/40 backdrop-blur-lg overflow-hidden hover:border-primary/50 transition-[border-color,background-color] duration-700",
+                                "group relative p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border border-white/5 bg-neutral-900/40 backdrop-blur-lg overflow-hidden hover:border-primary/50 transition-[border-color,background-color] duration-700",
                                 node.className
                             )}
                         >

@@ -2,51 +2,53 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Terminal, Calendar, Code, Briefcase, ChevronRight, Activity } from "lucide-react";
+import { Terminal, Calendar, Code, Briefcase, ChevronRight, Activity, Smartphone, Network } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 const timelineEvents = [
     {
-        id: "DEPLOY_04",
+        id: "CONQUEST_04",
         date: "2024 — PRESENT",
-        title: "Full Stack Architect",
-        location: "Freelance & Open Source",
-        description: "Orchestrating complex digital systems using advanced React patterns and native Android optimization techniques.",
-        metrics: ["+40% Perf", "12+ Apps", "Zero Downtime"],
-        icon: Terminal,
+        title: "AI Systems Architect",
+        location: "Freelance // AI Evolution",
+        description: "Conquering the frontier of agentic workflows and neural architectures. Integrating LLMs into complex digital ecosystems.",
+        metrics: ["Agentic Logic", "LLM Ops", "Neural UX"],
+        icon: Activity,
         active: true
     },
     {
-        id: "DEPLOY_03",
+        id: "CONQUEST_03",
         date: "2023 — 2024",
-        title: "Android Ecosystem Lead",
-        location: "Tech Innovation Hub",
-        description: "Redesigning mobile architectures for scalability. Specialized in Jetpack Compose and custom Gradle plugin development.",
-        metrics: ["10k+ Users", "4.8 App Rating", "99% Crash-Free"],
+        title: "Cross-Platform Conquering",
+        location: "Freelance // Mobile Mastery",
+        description: "Executing high-performance application development across ecosystems. Specialized in fluid, native-grade mobile experiences.",
+        metrics: ["Android Native", "Fluid UX", "Scalable Apps"],
+        icon: Smartphone,
+        active: false
+    },
+    {
+        id: "CONQUEST_02",
+        date: "2021 — 2023",
+        title: "Next.js & MERN Conquest",
+        location: "Freelance // Modern Web",
+        description: "Scaling the peaks of React-based architectures. Bridging complex logic with immersive front-end experiences.",
+        metrics: ["Next.js Core", "Serverless", "Full Stack"],
         icon: Code,
         active: false
     },
     {
-        id: "DEPLOY_02",
-        date: "2022 — 2023",
-        title: "Interactive UI Developer",
-        location: "Creative Design Studio",
-        description: "Bridging architectural logic with avant-garde aesthetics. Created 3D-heavy web experiences for premium brands.",
-        metrics: ["Awwwards X 2", "1M+ Impressions", "Smooth 60FPS"],
-        icon: Briefcase,
-        active: false
-    },
-    {
-        id: "DEPLOY_01",
-        date: "2021 — 2022",
-        title: "Junior Systems Engineer",
-        location: "Global Tech Solutions",
-        description: "Layering the foundation in cloud infrastructure and low-level system performance tuning.",
-        metrics: ["Backend Lead", "AWS Optimized", "Agile Core"],
-        icon: Activity,
+        id: "CONQUEST_01",
+        date: "2019 — 2021",
+        title: "PHP & SQL Foundation",
+        location: "Freelance // Origin Point",
+        description: "The initial deployment. Mastering the core principles of server-side logic and relational database architecture.",
+        metrics: ["PHP Architect", "SQL Design", "Core Logic"],
+        icon: Terminal,
         active: false
     }
 ];
+
 
 export function CareerBlueprint() {
     const containerRef = useRef<HTMLDivElement>(null);

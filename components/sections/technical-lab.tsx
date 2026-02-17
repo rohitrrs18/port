@@ -26,7 +26,7 @@ export function TechnicalLab() {
                         Research_And_Development
                         <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
                     </motion.div>
-                    <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase mb-6 leading-[0.8]">
+                    <h2 className="text-5xl md:text-8xl font-black italic tracking-tighter uppercase mb-6 leading-[0.8]">
                         Technical<br />
                         <span className="text-neutral-900 italic-outline">Lab</span>.
                     </h2>

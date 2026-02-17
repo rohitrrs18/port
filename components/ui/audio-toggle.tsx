@@ -13,6 +13,7 @@ export function AudioToggle() {
     return (
         <div className="fixed bottom-8 left-8 z-50">
             <motion.button
+                suppressHydrationWarning
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMuted(!isMuted)}

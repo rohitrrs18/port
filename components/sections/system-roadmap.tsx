@@ -53,7 +53,7 @@ export function SystemRoadmap() {
                         Timeline_Archival
                         <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                     </motion.div>
-                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter uppercase mb-6 leading-none">
+                    <h2 className="text-4xl md:text-7xl font-black italic tracking-tighter uppercase mb-6 leading-none">
                         System<br />
                         <span className="text-neutral-900 italic-outline">History</span>.
                     </h2>

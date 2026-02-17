@@ -1,181 +1,279 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { GraduationCap, Share2, Sparkles, ArrowUpRight, Github, Twitter, Linkedin } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { ArrowUpRight, Github, Twitter, Linkedin } from "lucide-react";
+import Magnetic from "@/components/ui/magnetic";
+
+const METRICS = [
+    { num: "40+", label: "Projects" },
+    { num: "10K", label: "Community" },
+    { num: "3+", label: "Years" },
+];
 
 export function AboutMe() {
-    const sectionRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { once: false, margin: "-10%" });
+    const [hovering, setHovering] = useState(false);
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
     const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
+        target: containerRef,
+        offset: ["start end", "end start"],
     });
 
-    // Parallax & Reveal values
-    const imageReveal = useTransform(scrollYProgress, [0.1, 0.4], ["100%", "0%"]);
-    const textReveal = useTransform(scrollYProgress, [0.2, 0.5], [100, 0]);
-    const textOpacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
+    const imgScale = useTransform(scrollYProgress, [0.1, 0.5], [1.3, 1]);
+    const imgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+    const textX = useTransform(scrollYProgress, [0.2, 0.6], [120, 0]);
+    const textO = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
+    const nameSlide = useTransform(scrollYProgress, [0.1, 0.45], ["110%", "0%"]);
+    const bgTextX = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
 
-    // Smooth transitions
-    const smoothImageReveal = useSpring(imageReveal, { stiffness: 40, damping: 20 });
+    const smoothScale = useSpring(imgScale, { stiffness: 50, damping: 20 });
+    const smoothNameSlide = useSpring(nameSlide, { stiffness: 40, damping: 20 });
+
+    const handleImageMouse = (e: React.MouseEvent) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setCursorPos({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
 
     return (
         <section
-            ref={sectionRef}
-            className="py-24 md:py-80 relative overflow-hidden bg-neutral-950"
+            ref={containerRef}
+            className="relative overflow-hidden bg-neutral-950 py-24 md:py-0 md:min-h-[150vh]"
             id="about"
         >
-            {/* Background Texture - Grain & Lines */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-50 contrast-150" />
-                <div className="h-full w-px bg-white/10 absolute left-[15%] top-0" />
-                <div className="h-full w-px bg-white/10 absolute left-[85%] top-0" />
-            </div>
+            {/* ═══ MASSIVE BACKGROUND NAME ═══ */}
+            <motion.div
+                style={{ x: bgTextX }}
+                className="absolute top-[15%] md:top-[20%] left-0 pointer-events-none select-none z-0 whitespace-nowrap"
+            >
+                <span className="text-[22vw] font-black text-white/[0.015] uppercase italic tracking-tighter leading-none">
+                    ROHIT SAWANT
+                </span>
+            </motion.div>
 
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="grid lg:grid-cols-12 gap-20 items-stretch">
+            {/* ═══ STICKY WRAPPER ═══ */}
+            <div className="md:sticky md:top-0 md:h-screen flex items-center">
+                <div className="container mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-8 md:gap-0 items-center relative">
 
-                    {/* 1. Cinematic Portrait - Shutter Reveal */}
-                    <div className="lg:col-span-5 relative flex flex-col justify-center">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 1 }}
-                            className="relative aspect-[4/5] rounded-[2rem] overflow-hidden group shadow-[0_0_100px_rgba(0,0,0,0.5)]"
-                        >
-                            <motion.img
-                                src="/rohit.jpeg"
-                                alt="Rohit Sawant"
-                                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
-                            />
-
-                            {/* Shutter Mask Effect */}
+                        {/* ──── LEFT: THE PORTRAIT ──── */}
+                        <div className="relative z-20 lg:-mr-24">
                             <motion.div
-                                style={{ width: smoothImageReveal }}
-                                className="absolute inset-0 right-0 bg-neutral-950 z-20 origin-right"
-                            />
-
-                            {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-
-                            {/* Inner Badge */}
-                            <div className="absolute bottom-10 left-10 overflow-hidden">
-                                <motion.div
-                                    initial={{ y: 50 }}
-                                    whileInView={{ y: 0 }}
-                                    transition={{ delay: 0.5, duration: 0.8 }}
-                                    className="flex items-center gap-4"
-                                >
-                                    <div className="w-12 h-px bg-primary" />
-                                    <span className="text-xs font-mono text-primary uppercase tracking-[0.4em]">Designer & Dev</span>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-
-                        {/* Floating Credential - Magnetic Effect Concept */}
-                        <motion.div
-                            whileHover={{ y: -10, rotate: 2 }}
-                            className="absolute -top-12 -right-12 p-8 bg-neutral-900/80 border border-white/10 rounded-[2.5rem] backdrop-blur-xl shadow-2xl hidden md:block"
-                        >
-                            <div className="flex items-center gap-4 mb-4">
-                                <Sparkles className="w-6 h-6 text-primary" />
-                                <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest leading-none">Identity_Verified</span>
-                            </div>
-                            <h4 className="text-2xl font-black text-white italic uppercase tracking-tighter">
-                                Building <br /> <span className="text-neutral-600 italic-outline">Tomorrow</span>
-                            </h4>
-                        </motion.div>
-                    </div>
-
-                    {/* 2. Editorial Narrative - Bold Typography */}
-                    <div className="lg:col-span-7 flex flex-col justify-center space-y-16">
-                        <div className="space-y-4">
-                            <motion.span
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                className="text-xs font-mono text-neutral-600 uppercase tracking-[1em] block"
+                                ref={imageRef}
+                                onMouseEnter={() => setHovering(true)}
+                                onMouseLeave={() => setHovering(false)}
+                                onMouseMove={handleImageMouse}
+                                className="relative aspect-[3/4] max-w-[500px] mx-auto lg:mx-0 overflow-hidden cursor-none group"
+                                style={{ y: imgY }}
                             >
-                                Biography
-                            </motion.span>
+                                {/* Image */}
+                                <motion.img
+                                    src="/rohit.jpeg"
+                                    alt="Rohit Sawant"
+                                    className="w-full h-full object-cover will-change-transform"
+                                    style={{ scale: smoothScale }}
+                                />
 
-                            <motion.h2
-                                style={{ y: textReveal, opacity: textOpacity }}
-                                className="text-6xl md:text-[9rem] font-black text-white leading-[0.8] tracking-widest uppercase italic"
-                            >
-                                Rohit<br />
-                                <span className="text-primary italic-outline">Sawant</span>.
-                            </motion.h2>
-                        </div>
+                                {/* Gradient Overlays */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-70" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/50 via-transparent to-transparent" />
 
-                        <div className="max-w-2xl space-y-8">
-                            <p className="text-xl md:text-4xl text-neutral-400 font-light leading-snug">
-                                An <span className="text-white font-bold italic">Engineering Architect</span> by trade, a <span className="text-white font-bold italic">Digital Voice</span> by choice.
-                            </p>
-                            <p className="text-lg text-neutral-500 font-medium leading-relaxed max-w-xl">
-                                I specialize in crafting digital ecosystems where complex engineering logic meets human-centric design. Bridging the gap between the screen and the soul.
-                            </p>
+                                {/* Hover Spotlight */}
+                                {hovering && (
+                                    <div
+                                        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none mix-blend-soft-light transition-opacity duration-300"
+                                        style={{
+                                            left: cursorPos.x - 150,
+                                            top: cursorPos.y - 150,
+                                            background: "radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)",
+                                        }}
+                                    />
+                                )}
 
-                            {/* Social Modules */}
-                            <div className="flex gap-6 pt-6">
-                                {[
-                                    { icon: Github, href: "#" },
-                                    { icon: Twitter, href: "#" },
-                                    { icon: Linkedin, href: "#" }
-                                ].map((social, i) => (
-                                    <a
-                                        key={i}
-                                        href={social.href}
-                                        className="w-12 h-12 rounded-2xl bg-neutral-900 border border-white/5 flex items-center justify-center hover:border-primary/50 hover:bg-primary/5 transition-all group"
+                                {/* Custom Cursor Dot */}
+                                {hovering && (
+                                    <motion.div
+                                        className="absolute w-3 h-3 border border-white rounded-full pointer-events-none z-50 mix-blend-difference"
+                                        animate={{ x: cursorPos.x - 6, y: cursorPos.y - 6 }}
+                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    />
+                                )}
+
+                                {/* ── Measurement Annotations ── */}
+                                <div className="absolute top-0 right-0 h-full w-8 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                    <div className="h-full w-px bg-white/20 relative">
+                                        <div className="absolute top-0 w-3 h-px bg-white/20 -translate-x-1" />
+                                        <div className="absolute bottom-0 w-3 h-px bg-white/20 -translate-x-1" />
+                                        <span className="absolute top-1/2 -translate-y-1/2 -rotate-90 text-[7px] font-mono text-white/30 tracking-[0.4em] whitespace-nowrap">
+                                            1920 × 2560
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* ── Corner Markers ── */}
+                                <div className="absolute top-4 left-4 w-5 h-5 border-t border-l border-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute top-4 right-4 w-5 h-5 border-t border-r border-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l border-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute bottom-4 right-4 w-5 h-5 border-b border-r border-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                {/* ── Bottom Label ── */}
+                                <div className="absolute bottom-8 left-8 z-30">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: "100%" }}
+                                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                                        className="overflow-hidden"
                                     >
-                                        <social.icon className="w-5 h-5 text-neutral-400 group-hover:text-primary transition-colors" />
-                                    </a>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-[1px] bg-primary" />
+                                            <span className="text-[9px] font-mono text-primary uppercase tracking-[0.5em] whitespace-nowrap">
+                                                PUNE, INDIA
+                                            </span>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+
+                            {/* Metrics Row - Below Image */}
+                            <div className="flex gap-12 mt-10 max-w-[500px] mx-auto lg:mx-0">
+                                {METRICS.map((m, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3 + i * 0.1 }}
+                                        className="group"
+                                    >
+                                        <span className="text-4xl md:text-5xl font-black text-white italic tracking-tighter leading-none">
+                                            {m.num}
+                                        </span>
+                                        <span className="block text-[9px] font-mono text-neutral-600 uppercase tracking-[0.4em] mt-2">
+                                            {m.label}
+                                        </span>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* 3. The Role Cards - Refined Glassmorphism */}
-                        <div className="grid md:grid-cols-2 gap-8 pt-10 border-t border-neutral-900">
-                            {[
-                                {
-                                    icon: GraduationCap,
-                                    title: "Scholar",
-                                    desc: "Engineering student exploring neural networks and futuristic system logic."
-                                },
-                                {
-                                    icon: Share2,
-                                    title: "Influence",
-                                    desc: "Leading a community of 10k+ through storytelling and tech insight."
-                                }
-                            ].map((card, i) => (
-                                <motion.div
-                                    key={i}
-                                    whileHover={{ y: -5 }}
-                                    className="p-8 rounded-3xl bg-neutral-900/40 border border-white/5 hover:border-primary/20 hover:bg-neutral-900/60 transition-all duration-500 group"
-                                >
-                                    <card.icon className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
-                                    <h4 className="text-2xl font-black text-white uppercase italic mb-3 tracking-tighter">{card.title}</h4>
-                                    <p className="text-neutral-500 text-sm leading-relaxed font-mono uppercase tracking-tight">{card.desc}</p>
+                        {/* ──── RIGHT: EDITORIAL TEXT ──── */}
+                        <div className="relative z-10 lg:pl-16 xl:pl-24 flex flex-col gap-10 md:gap-16">
+
+                            {/* Name Reveal */}
+                            <div className="overflow-hidden">
+                                <motion.div style={{ y: smoothNameSlide }}>
+                                    <span className="text-[10px] font-mono text-neutral-600 uppercase tracking-[1em] block mb-6">
+                                        IDENTITY
+                                    </span>
+                                    <h2 className="text-6xl md:text-[8rem] lg:text-[10rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic">
+                                        Rohit
+                                        <br />
+                                        <span className="text-neutral-900 italic-outline">Sawant</span>
+                                    </h2>
                                 </motion.div>
-                            ))}
+                            </div>
+
+                            {/* Bio */}
+                            <motion.div
+                                style={{ x: textX, opacity: textO }}
+                                className="space-y-6 max-w-lg"
+                            >
+                                <div className="flex items-center gap-4 mb-2">
+                                    <div className="w-12 h-[1px] bg-primary" />
+                                    <span className="text-[10px] font-mono text-primary uppercase tracking-[0.5em]">
+                                        AI_SYSTEMS_ARCHITECT
+                                    </span>
+                                </div>
+                                <p className="text-2xl md:text-3xl text-neutral-300 font-light leading-snug">
+                                    I build <span className="text-white font-bold italic">intelligent systems</span> where{" "}
+                                    <span className="text-white font-bold italic">agentic logic</span>{" "}
+                                    meets{" "}
+                                    <span className="text-white font-bold italic">immersive experience</span>.
+                                </p>
+                                <p className="text-neutral-600 text-sm md:text-base leading-relaxed">
+                                    From legacy PHP conquests to the frontiers of LLM engineering, I specialize in crafting
+                                    autonomous digital entities that learn, evolve, and redefine human-system interaction.
+                                </p>
+
+                                {/* Technical Specification Block - Add Depth */}
+                                <div className="pt-8 mt-8 border-t border-white/[0.05] grid grid-cols-2 gap-8">
+                                    <div className="space-y-2">
+                                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Active_Stack</span>
+                                        <div className="flex flex-wrap gap-2">
+                                            {["LLMs", "React", "Rust", "Kotlin"].map(t => (
+                                                <span key={t} className="text-[10px] text-white/40 font-mono border border-white/5 px-2 py-0.5 rounded-sm">
+                                                    {t}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2 text-right">
+                                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Current_Focus</span>
+                                        <p className="text-[11px] text-primary font-mono lowercase tracking-tighter">
+                                            agentic_workflows.v4
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Social + CTA Row */}
+
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="flex items-center gap-8"
+                            >
+                                <div className="flex gap-3">
+                                    {[Github, Twitter, Linkedin].map((Icon, i) => (
+                                        <Magnetic key={i}>
+                                            <a
+                                                href="#"
+                                                className="w-12 h-12 bg-white/[0.03] border border-white/5 flex items-center justify-center hover:border-primary/40 hover:bg-primary/5 transition-all duration-500 group"
+                                            >
+                                                <Icon className="w-4 h-4 text-neutral-600 group-hover:text-primary transition-colors" />
+                                            </a>
+                                        </Magnetic>
+                                    ))}
+                                </div>
+
+                                <div className="h-8 w-px bg-white/10" />
+
+                                <Magnetic>
+                                    <a
+                                        href="#contact"
+                                        className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors group"
+                                    >
+                                        <span className="text-xs font-mono uppercase tracking-[0.3em]">
+                                            Let&apos;s Talk
+                                        </span>
+                                        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    </a>
+                                </Magnetic>
+                            </motion.div>
+
+                            {/* Decorative Line */}
+                            <div className="hidden lg:block">
+                                <motion.div
+                                    initial={{ scaleX: 0 }}
+                                    whileInView={{ scaleX: 1 }}
+                                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                    className="h-px bg-gradient-to-r from-primary/40 via-white/10 to-transparent origin-left max-w-md"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Background Narrative Decoration - Cinematic Quote */}
-            <div className="absolute bottom-10 left-[15%] overflow-hidden pointer-events-none select-none">
-                <motion.div
-                    style={{ x: useTransform(scrollYProgress, [0.5, 1], [-200, 200]) }}
-                    className="text-[12vw] font-black text-white/[0.02] whitespace-nowrap leading-none italic uppercase italic-outline"
-                >
-                    CODE IS POETRY IN MOTION
-                </motion.div>
-            </div>
-
-            {/* Glow Accents */}
-            <div className="absolute top-1/4 right-[5%] w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-1/4 left-[5%] w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+            {/* ═══ AMBIENT GLOWS ═══ */}
+            <div className="absolute top-[20%] right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px] pointer-events-none" />
+            <div className="absolute bottom-[20%] left-0 w-[300px] h-[300px] bg-white/[0.02] rounded-full blur-[150px] pointer-events-none" />
         </section>
     );
 }

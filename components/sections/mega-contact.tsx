@@ -54,28 +54,41 @@ export function MegaContact() {
                 <div className="grid lg:grid-cols-2 gap-20 items-end">
 
                     {/* Left Column: CTA */}
-                    <div className="space-y-8">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            className="text-[12vw] lg:text-[10vw] font-black leading-[0.8] text-white tracking-tighter"
-                        >
-                            LET'S<br />
-                            <span className="text-neutral-800 break-words">COLLAB</span>
-                            <span className="text-primary">.</span>
-                        </motion.h2>
-                        <p className="text-xl md:text-2xl text-neutral-400 max-w-xl">
-                            Got a crazy idea? I love crazy ideas. Let's push the boundaries of what's possible on the web.
-                        </p>
+                    <div className="space-y-12">
+                        <div className="space-y-6">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-4 text-xs font-mono text-primary uppercase tracking-[0.5em]"
+                            >
+                                <span className="w-8 h-[1px] bg-primary/30" />
+                                Contact_Initiation
+                            </motion.div>
+                            <motion.h2
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1 }}
+                                className="text-[10vw] font-black leading-[0.8] text-white tracking-tighter uppercase italic"
+                            >
+                                LET'S<br />
+                                <span className="text-neutral-800 italic-outline">COLLAB</span>
+                                <span className="inline-block w-[0.2em] h-[0.2em] bg-[#8B5CF6] rounded-full ml-2 translate-y-[-0.1em]" />
+                            </motion.h2>
+                        </div>
 
-                        <div className="flex gap-4">
-                            <a href="mailto:rohitsawant.dev@gmail.com" className="group flex items-center gap-3 text-xl md:text-2xl font-bold text-white hover:text-primary transition-colors">
-                                <span className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                                    <Mail className="w-5 h-5" />
-                                </span>
-                                rohitsawant.dev@gmail.com
-                            </a>
+                        <div className="space-y-8">
+                            <p className="text-lg md:text-xl text-neutral-400 font-light leading-relaxed max-w-md">
+                                Got a crazy idea? I love crazy ideas. Let's push the boundaries of what's possible on the web.
+                            </p>
+
+                            <div className="flex flex-col gap-6 pt-6">
+                                <a href="mailto:rohitsawant.dev@gmail.com" className="group flex items-center gap-4 text-sm md:text-base font-bold text-white transition-colors">
+                                    <span className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                                        <Mail className="w-5 h-5" />
+                                    </span>
+                                    rohitsawant.dev@gmail.com
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -108,38 +121,42 @@ export function MegaContact() {
                                         </Button>
                                     </motion.div>
                                 ) : (
-                                    <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-mono text-neutral-500 uppercase">Your Name</label>
+                                    <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-12">
+                                        <div className="space-y-4">
                                             <input
                                                 type="text"
                                                 name="name"
                                                 required
                                                 suppressHydrationWarning
-                                                className="w-full bg-transparent border-b border-neutral-700 py-4 text-xl text-white focus:outline-none focus:border-white transition-colors"
+                                                className="w-full bg-transparent border-b border-neutral-800 py-6 text-2xl text-white placeholder:text-neutral-600 focus:outline-none focus:border-white transition-colors font-light"
                                                 placeholder="John Doe"
                                             />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-mono text-neutral-500 uppercase">Your Email</label>
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-mono text-neutral-600 uppercase tracking-[0.3em]">Your Email</label>
                                             <input
                                                 type="email"
                                                 name="email"
                                                 required
                                                 suppressHydrationWarning
-                                                className="w-full bg-transparent border-b border-neutral-700 py-4 text-xl text-white focus:outline-none focus:border-white transition-colors"
+                                                className="w-full bg-transparent border-b border-neutral-800 py-6 text-2xl text-white placeholder:text-neutral-600 focus:outline-none focus:border-white transition-colors font-light"
                                                 placeholder="john@example.com"
                                             />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-mono text-neutral-500 uppercase">The Idea</label>
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-mono text-neutral-600 uppercase tracking-[0.3em]">The Idea</label>
                                             <textarea
-                                                rows={4}
+                                                rows={1}
                                                 name="message"
                                                 required
                                                 suppressHydrationWarning
-                                                className="w-full bg-transparent border-b border-neutral-700 py-4 text-xl text-white focus:outline-none focus:border-white resize-none transition-colors"
+                                                className="w-full bg-transparent border-b border-neutral-800 py-6 text-2xl text-white placeholder:text-neutral-600 focus:outline-none focus:border-white resize-none transition-colors font-light overflow-hidden"
                                                 placeholder="Tell me about it..."
+                                                onInput={(e) => {
+                                                    const target = e.target as HTMLTextAreaElement;
+                                                    target.style.height = 'auto';
+                                                    target.style.height = target.scrollHeight + 'px';
+                                                }}
                                             />
                                         </div>
 
@@ -150,12 +167,14 @@ export function MegaContact() {
                                         <Button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="w-full h-16 text-xl bg-white text-black hover:bg-neutral-200 rounded-xl mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full h-20 text-xl font-bold bg-white text-black hover:bg-neutral-200 rounded-3xl mt-12 transition-all group overflow-hidden relative"
                                         >
                                             {isSubmitting ? (
-                                                <>Sending... <Loader2 className="ml-2 w-6 h-6 animate-spin" /></>
+                                                <div className="flex items-center">Sending Transmission... <Loader2 className="ml-3 w-6 h-6 animate-spin" /></div>
                                             ) : (
-                                                <>Launch Project <ArrowRight className="ml-2 w-6 h-6" /></>
+                                                <div className="flex items-center gap-2 group-hover:gap-4 transition-all uppercase tracking-tighter">
+                                                    Launch Project <ArrowRight className="w-6 h-6" />
+                                                </div>
                                             )}
                                         </Button>
                                     </motion.div>
@@ -165,7 +184,6 @@ export function MegaContact() {
                     </motion.div>
                 </div>
             </div>
-
         </section>
     );
 }

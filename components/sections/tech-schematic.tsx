@@ -43,7 +43,7 @@ export function TechSchematic() {
                         <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                         System_Infrastructure
                     </motion.div>
-                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter uppercase mb-6 leading-none">
+                    <h2 className="text-4xl md:text-7xl font-black italic tracking-tighter uppercase mb-6 leading-none">
                         Tech Stack<br />
                         <span className="text-neutral-900 italic-outline">Architecture</span>.
                     </h2>
@@ -53,7 +53,7 @@ export function TechSchematic() {
                 </div>
 
                 {/* Schematic Container */}
-                <div className="relative aspect-[16/10] md:aspect-[21/9] bg-neutral-900/20 border border-white/5 rounded-[3rem] p-12 overflow-hidden backdrop-blur-3xl group/schematic shadow-2xl">
+                <div className="relative aspect-[4/5] md:aspect-[21/9] bg-neutral-900/20 border border-white/5 rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 overflow-hidden backdrop-blur-3xl group/schematic shadow-2xl">
                     {/* SVG Connections Layer */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 group-hover/schematic:opacity-40 transition-opacity duration-1000">
                         {CONNECTIONS.map((conn, i) => {

@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { Preloader } from "@/components/layout/preloader";
-import { CommandTerminal } from "@/components/ui/command-terminal";
 import { VitalsHUD } from "@/components/ui/vitals-hud";
 import { AudioToggle } from "@/components/ui/audio-toggle";
 
@@ -47,7 +46,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Preloader />
-          <CommandTerminal />
           <VitalsHUD />
           <AudioToggle />
           <SmoothScroll>

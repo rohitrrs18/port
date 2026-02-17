@@ -1,14 +1,41 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence, useVelocity, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export function CustomCursor() {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
+    const [isPressed, setIsPressed] = useState(false);
     const [cursorText, setCursorText] = useState("");
+
+    // Calculate velocity for "squish" effect
+    const velX = useVelocity(mouseX);
+    const velY = useVelocity(mouseY);
+
+    // Combining velocities manually since useTransform with multiple MotionValues 
+    // needs to be handled carefully in some Framer Motion versions
+    const [velocity, setVelocity] = useState(0);
+
+    useEffect(() => {
+        const unsubscribeX = velX.on("change", (latestX) => {
+            const latestY = velY.get();
+            setVelocity(Math.sqrt(latestX ** 2 + latestY ** 2));
+        });
+        const unsubscribeY = velY.on("change", (latestY) => {
+            const latestX = velX.get();
+            setVelocity(Math.sqrt(latestX ** 2 + latestY ** 2));
+        });
+        return () => {
+            unsubscribeX();
+            unsubscribeY();
+        };
+    }, [velX, velY]);
+
+    const scaleXValue = 1 + Math.min(velocity / 3000, 0.5);
+    const scaleYValue = 1 - Math.min(velocity / 3000, 0.5);
 
     // Spring configurations for different parts of the cursor
     const mainSpringConfig = { stiffness: 1000, damping: 50 };
@@ -47,12 +74,19 @@ export function CustomCursor() {
             }
         };
 
+        const handleMouseDown = () => setIsPressed(true);
+        const handleMouseUp = () => setIsPressed(false);
+
         window.addEventListener("mousemove", updateMousePosition);
         window.addEventListener("mouseover", handleMouseOver);
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mouseup", handleMouseUp);
 
         return () => {
             window.removeEventListener("mousemove", updateMousePosition);
             window.removeEventListener("mouseover", handleMouseOver);
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mouseup", handleMouseUp);
         };
     }, [mouseX, mouseY]);
 
@@ -84,13 +118,16 @@ export function CustomCursor() {
             <motion.div
                 className={cn(
                     "absolute w-2 h-2 bg-white rounded-full mix-blend-difference flex items-center justify-center transition-all duration-300",
-                    isHovering ? "w-20 h-20 bg-white/90" : "w-2 h-2"
+                    isHovering ? "w-20 h-20 bg-white/90" : "w-1.5 h-1.5",
+                    isPressed && "scale-90"
                 )}
                 style={{
                     x: springX,
                     y: springY,
                     translateX: "-50%",
                     translateY: "-50%",
+                    scaleX: scaleXValue,
+                    scaleY: scaleYValue,
                 }}
             >
                 <AnimatePresence>

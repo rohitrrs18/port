@@ -7,6 +7,7 @@ import { Menu, X, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { LogoRS } from "@/components/ui/logo-rs";
+import Magnetic from "@/components/ui/magnetic";
 
 const navLinks = [
     { name: "Expertise", href: "#expertise" },
@@ -14,46 +15,6 @@ const navLinks = [
     { name: "Thoughts", href: "#blog" },
     { name: "Launch", href: "#contact" },
 ];
-
-function MagneticLink({ children, href }: { children: React.ReactNode; href: string }) {
-    const ref = useRef<HTMLAnchorElement>(null);
-    const mX = useMotionValue(0);
-    const mY = useMotionValue(0);
-    const springX = useSpring(mX, { stiffness: 150, damping: 15 });
-    const springY = useSpring(mY, { stiffness: 150, damping: 15 });
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const { clientX, clientY } = e;
-        const { left, top, width, height } = ref.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
-        const center = { x: left + width / 2, y: top + height / 2 };
-        mX.set((clientX - center.x) * 0.4);
-        mY.set((clientY - center.y) * 0.4);
-    };
-
-    const handleMouseLeave = () => {
-        mX.set(0);
-        mY.set(0);
-    };
-
-    return (
-        <motion.div
-            style={{ x: springX, y: springY }}
-        >
-            <Link
-                ref={ref}
-                href={href}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className="relative px-4 py-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors uppercase tracking-widest font-mono group"
-            >
-                {children}
-                <motion.span
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
-                />
-            </Link>
-        </motion.div>
-    );
-}
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -91,9 +52,17 @@ export function Navbar() {
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-2">
                     {navLinks.map((link) => (
-                        <MagneticLink key={link.name} href={link.href}>
-                            {link.name}
-                        </MagneticLink>
+                        <Magnetic key={link.name}>
+                            <Link
+                                href={link.href}
+                                className="relative px-4 py-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors uppercase tracking-widest font-mono group"
+                            >
+                                {link.name}
+                                <motion.span
+                                    className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+                                />
+                            </Link>
+                        </Magnetic>
                     ))}
                 </nav>
 

@@ -3,6 +3,7 @@
 import { KineticText } from "@/components/ui/kinetic-text";
 import { GlitchText } from "@/components/ui/glitch-text";
 import { LiquidChromeWrapper } from "@/components/canvas/liquid-chrome-wrapper";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 // Dynamically load heavy sections with ssr: false for high performance
@@ -31,17 +32,29 @@ export function HomeContent({ posts }: HomeContentProps) {
             {/* Content Layer */}
             <div className="relative z-10">
                 {/* Hero Section */}
-                <section className="h-[90vh] md:h-screen flex flex-col justify-center items-center pointer-events-none px-4">
-                    <div className="mix-blend-difference z-20 text-center">
-                        <KineticText text="BEYOND IMAGINATION" className="text-[12vw] md:text-[15vw] font-black leading-none tracking-tighter opacity-80" baseVelocity={2} />
-                        <KineticText text="DIGITAL EXPERIENCE" className="text-[12vw] md:text-[15vw] font-black leading-none tracking-tighter opacity-80" baseVelocity={-2} />
-                    </div>
+                <section className="h-[90vh] md:h-screen flex flex-col justify-center items-center pointer-events-none px-4 overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="z-20 text-center relative"
+                    >
+                        <div className="relative">
+                            <KineticText text="BEYOND IMAGINATION" className="text-[12vw] md:text-[14vw] font-black leading-none tracking-tighter text-white drop-shadow-2xl" baseVelocity={1.5} />
+                            <KineticText text="DIGITAL EXPERIENCE" className="text-[12vw] md:text-[14vw] font-black leading-none tracking-tighter text-white/50 drop-shadow-2xl" baseVelocity={-1.5} />
+                        </div>
 
-                    <div className="mt-20 mix-blend-difference pointer-events-auto">
-                        <p className="text-xl md:text-2xl font-mono tracking-widest uppercase mb-4 text-center">
-                            <GlitchText text="Rohit // Full Stack Developer" />
-                        </p>
-                    </div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 1 }}
+                            className="mt-16 pointer-events-auto"
+                        >
+                            <p className="text-xl md:text-2xl font-mono tracking-[0.3em] uppercase mb-4 text-center text-primary drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]">
+                                <GlitchText text="Rohit // Full Stack Developer" />
+                            </p>
+                        </motion.div>
+                    </motion.div>
                 </section>
 
                 {/* Editorial Content Layout */}

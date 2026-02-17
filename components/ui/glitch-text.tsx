@@ -36,8 +36,8 @@ export function GlitchText({ text, className }: GlitchTextProps) {
                 if (intervalRef.current) clearInterval(intervalRef.current);
             }
 
-            iteration += 1 / 3;
-        }, 30);
+            iteration += 1 / 2;
+        }, 20);
     };
 
     return (

@@ -30,7 +30,6 @@ export function KineticText({ text, className, baseVelocity = 5 }: KineticTextPr
     useAnimationFrame((t, delta) => {
         let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-        // Add scroll velocity to movement
         if (velocityFactor.get() < 0) {
             directionFactor.current = -1;
         } else if (velocityFactor.get() > 0) {
@@ -39,19 +38,22 @@ export function KineticText({ text, className, baseVelocity = 5 }: KineticTextPr
 
         moveBy += directionFactor.current * moveBy * velocityFactor.get();
 
-        baseX.set(wrap(-50, -25, baseX.get() + moveBy));
+        // Adjusted wrap for 6 items (100 / 6 = 16.66)
+        baseX.set(wrap(-45, -5, baseX.get() + moveBy));
     });
 
     return (
-        <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
+        <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap py-4">
             <motion.div
-                className={"flex flex-nowrap whitespace-nowrap " + className}
+                className={"flex flex-nowrap whitespace-nowrap px-4 " + className}
                 style={{ x, skewX: skew, willChange: "transform, skew" }}
             >
-                <span className="block mr-12">{text}</span>
-                <span className="block mr-12">{text}</span>
-                <span className="block mr-12">{text}</span>
-                <span className="block mr-12">{text}</span>
+                <span className="block mr-16">{text}</span>
+                <span className="block mr-16">{text}</span>
+                <span className="block mr-16">{text}</span>
+                <span className="block mr-16">{text}</span>
+                <span className="block mr-16">{text}</span>
+                <span className="block mr-16">{text}</span>
             </motion.div>
         </div>
     );
